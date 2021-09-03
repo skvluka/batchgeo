@@ -1,3 +1,3 @@
 name	time	latitude	longitude
-123123/2021 testiranje ne brisi	08:00:00	45.1235	15.1245
+123123/2021 testiranje ne brisi	08:00:00	45.1235	15.1285
 4214213/2021 testiranje ne brisi	09:00:00	45.1235	15.1245

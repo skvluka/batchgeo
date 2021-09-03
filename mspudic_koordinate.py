@@ -1,6 +1,6 @@
 #progrmaski kod za dohvat podataka sa TodoistAPI, spremanje u tekstualnu datoteku i slanje na batchgeo platformu i kreiranje linka koji se salje na postavljeni mail koji je hardcoded
 #mail i ostale stvari mogu se popraviti da se zatrazi unos na koji mail se salje link za kartu to je najmanji problem slozit
-#importovi neke se može maknut kome se da radit na tome slobodno neka makne  ovaj from datetime import datetime i ovaj from helium import drag_file i testira kod nakon toga
+#importovi neke se moze maknut kome se da radit na tome slobodno neka makne  ovaj from datetime import datetime i ovaj from helium import drag_file i testira kod nakon toga
 #kod je potrebno prebacit u exe file i potrebno je testirati nakon toga
 from datetime import datetime
 from io import IncrementalNewlineDecoder
@@ -13,6 +13,9 @@ import os
 import sys
 from helium._impl import FileInput
 from todoist.api import TodoistAPI
+from selenium.webdriver import FirefoxOptions
+
+
 #Todoist API code
 api = TodoistAPI('9dc003676c1428d5430099c43fca59f09b9dd85b')
 api.sync()
@@ -27,6 +30,8 @@ print(danasdatum)
 f= open("Batchgeoinfo.txt","w+")
 f.close()
 pocetno = "name\ttime\tlatitude\tlongitude"
+
+
 
 #unos stringa pocetno u tekstualnu datoteku Batchgeoinfo
 with open('Batchgeoinfo.txt', 'r+', encoding='utf-8') as f:
@@ -65,14 +70,21 @@ if getattr(sys, 'frozen', False):
 elif __file__:
     application_path = os.path.dirname(__file__)
 #Helium dio za dropanje datoteke u Batchgeoinfo.txt 
-datoteka = os.path.join(application_path, "Batchgeoinfo.txt")
-start_chrome("batchgeo.com")
+datoteka = os.path.join("/home/tomislav/Desktop/batchgeo"
+, "Batchgeoinfo.txt")
+
+options = FirefoxOptions()
+options.add_argument("--width=1920")
+options.add_argument("--height=1080")
+start_firefox("batchgeo.com",options=options)
+
+
 #drag filova u polje gdje pise "Copy & Paste or Drag Your File Here" u slucaju da se to na stranici izmjeni treba promjenit kod ovdje to="Copy & Paste or Drag Your File Here" u to="Novi tekst"
 drag_file(datoteka, to="Copy & Paste or Drag Your File Here")
 click("Map Your Data")
 #naslov karte se sastoji od danasnjeg datuma + tereni npr. "2021-09-01 Tereni"
 write(danas + ' Tereni za sutra', into="Title")
-write('luka@tron-usluge.hr', into="Email")
+write('teren@geo-kom.hr', into="Email")
 #Ako je kvacica na checkboxu onda nemoj napravit nista ako nije oznaci polje kvacicom
 if not CheckBox("I have read and agree to the BatchGeo").is_checked():
     click(CheckBox("I have read and agree to the BatchGeo"))
