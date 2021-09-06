@@ -13,7 +13,7 @@ import os
 import sys
 from helium._impl import FileInput
 from todoist.api import TodoistAPI
-from selenium.webdriver import FirefoxOptions
+from selenium.webdriver import ChromeOptions
 
 
 #Todoist API code
@@ -70,13 +70,13 @@ if getattr(sys, 'frozen', False):
 elif __file__:
     application_path = os.path.dirname(__file__)
 #Helium dio za dropanje datoteke u Batchgeoinfo.txt 
-datoteka = os.path.join("/home/tomislav/Desktop/batchgeo"
+datoteka = os.path.join("/home/korisnik/Desktop/Projekti/Batchgeo/Batchgeo"
 , "Batchgeoinfo.txt")
 
-options = FirefoxOptions()
+options = ChromeOptions()
 options.add_argument("--width=1920")
 options.add_argument("--height=1080")
-start_firefox("batchgeo.com",options=options)
+start_chrome("batchgeo.com")
 
 
 #drag filova u polje gdje pise "Copy & Paste or Drag Your File Here" u slucaju da se to na stranici izmjeni treba promjenit kod ovdje to="Copy & Paste or Drag Your File Here" u to="Novi tekst"
